@@ -8,6 +8,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import IconButton from '@material-ui/core/IconButton';
 import Request from './Request';
 import { selectRequest } from '../store/requests/actions';
+import Clef from '../store/clefService';
 
 const styles = () => ({});
 
@@ -42,7 +43,7 @@ class Requests extends Component {
 
   send = (method, params, id, result) => {
     const { clef, dispatch } = this.props;
-    clef.send(dispatch, method, params, id, result);
+    Clef.send(clef, dispatch, method, params, id, result);
   };
 
   renderControls() {
@@ -55,9 +56,9 @@ class Requests extends Component {
     if (queue.length > 1) {
       const currentRequest = selectedIndex + 1;
       queueLocation = (
-        <Typography inline>
+        <span>
           {currentRequest} of {queue.length}
-        </Typography>
+        </span>
       );
     }
     return (

@@ -1,36 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Notification from './Notification';
+import { clearNotification } from '../store/notifications/actions';
 
 class Notifications extends Component {
   static propTypes = {
-    notifications: PropTypes.array
+    notifications: PropTypes.array,
+    dispatch: PropTypes.func,
+    clef: PropTypes.object
   };
 
   onDismiss = index => {
-    console.log('dismiss notification', index);
+    const { dispatch, clef } = this.props;
+    dispatch(clearNotification(index, clef));
   };
 
   render() {
     const { notifications } = this.props;
     const renderNotifications = [];
-    notifications.forEach((notification, index) => {
-      console.log(notification);
-      const { method } = notification;
-      const type = method.includes('error') ? 'error' : 'info';
-      let { text } = notification.params[0];
-      if (method === 'ui_onSignerStartup') {
-        const { info } = notification.params[0];
-        const httpAddress = info.extapi_http;
-        const ipcAddress = info.extapi_ipc;
-        text = 'Clef signer started on';
-        if (httpAddress !== 'n/a') {
-          text += ` ${httpAddress}`;
-        }
-        if (ipcAddress !== 'n/a') {
-          text += ` ${ipcAddress}`;
-        }
-      }
+    notifications.notifications.forEach((notification, index) => {
+      const { type, text } = notification;
       const renderNotification = (
         <Notification
           key={index}
@@ -48,4 +38,10 @@ class Notifications extends Component {
   }
 }
 
-export default Notifications;
+function mapStateToProps(state) {
+  return {
+    notifications: state.notifications
+  };
+}
+
+export default connect(mapStateToProps)(Notifications);

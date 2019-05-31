@@ -11,9 +11,10 @@ class ClefService {
       payload.method = method;
       payload.params = params;
     }
-    clef.write(payload);
+    clef.plugin.write(payload);
     if (id) {
       dispatch(requestDone(id));
+      clef.plugin.removePendingRequest(id);
     }
   }
 
@@ -29,7 +30,7 @@ class ClefService {
     // );
   }
 
-  notifyRequest(grid, request) {
+  notifyRequest(request, grid) {
     const title = 'Clef Signer';
     let body = 'New Request';
     switch (request.method) {
@@ -59,7 +60,7 @@ class ClefService {
     grid.notify(title, body);
   }
 
-  notifyNotification(grid, notification) {
+  notifyNotification(notification, grid) {
     const title = 'Clef Signer';
     const body = notification.text;
     grid.notify(title, body);

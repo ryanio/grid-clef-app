@@ -7,10 +7,10 @@ export const selectRequest = index => {
   };
 };
 
-export const addRequest = (data, client) => {
+export const addRequest = (data, grid) => {
   return async (dispatch, getState) => {
-    const request = { ...data, client };
-    Clef.notifyRequest(request);
+    const request = { ...data };
+    Clef.notifyRequest(request, grid);
     // Remove unneeded jsonrpc value
     // if (request.jsonrpc) {
     //   delete request.jsonrpc
@@ -42,21 +42,12 @@ export const requestDone = id => {
   };
 };
 
-export const onRequest = (data, client, dispatch) => {
-  dispatch(addRequest(data, client.name));
+export const onRequest = (data, dispatch) => {
+  dispatch(addRequest(data));
 };
 
-export function clearRequests(client) {
-  return async (dispatch, getState) => {
-    const queue = getState().requests.queue.filter(
-      r => r.client === client.name
-    );
-    if (queue.length === 0) {
-      return;
-    }
-    dispatch({
-      type: 'REQUESTS:CLEAR',
-      payload: { clientName: client.name }
-    });
+export function clearRequests() {
+  return {
+    type: 'REQUESTS:CLEAR'
   };
 }

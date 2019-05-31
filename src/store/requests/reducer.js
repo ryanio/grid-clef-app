@@ -32,11 +32,10 @@ const requests = (state = initialState, action) => {
       return newState;
     }
     case 'REQUESTS:CLEAR': {
-      const { clientName } = action.payload;
       const newState = {
         ...state,
         selectedIndex: 0,
-        queue: state.queue.filter(request => request.client !== clientName)
+        queue: []
       };
       return newState;
     }

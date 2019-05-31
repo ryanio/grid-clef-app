@@ -1,4 +1,7 @@
 .App {
+}
+
+.header {
   text-align: center;
 }
 
@@ -10,13 +13,25 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom: 20px;
+}
+
+.App-header h1 {
+  margin-bottom: 20px;
+}
+
+.App-header h2 {
+  text-transform: uppercase;
+  color: #ccc;
+  font-size: 18px;
+  margin-top: 0;
 }
 
 .App-link {

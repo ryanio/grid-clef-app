@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './App.css';
 import Requests from './Requests';
 import Notifications from './Notifications';
-import { onRequest } from './store/requests/actions';
-import { onNotification } from './store/notifications/actions';
+import { addRequest } from './store/requests/actions';
+import { addNotification } from './store/notifications/actions';
 
 class App extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func
+  };
+
   state = {
-    requests: [],
-    notifications: [],
     pluginState: null
   };
 
@@ -25,28 +29,32 @@ class App extends Component {
   };
 
   getPending = () => {
-    const clef = this.clef;
+    const { dispatch } = this.props;
+    const { clef } = this;
+    const { grid } = window;
     const { getPendingRequests, getPendingNotifications } = clef.plugin.config;
     const requests = getPendingRequests();
     requests.forEach(request => {
-      onRequest(request);
+      dispatch(addRequest(request, grid));
     });
     const notifications = getPendingNotifications();
-    notifications.forEach(notifications => {
-      onNotification(notifications);
+    notifications.forEach(notification => {
+      dispatch(addNotification(notification, grid));
     });
   };
 
   addListeners = () => {
-    const clef = this.clef;
+    const { dispatch } = this.props;
+    const { clef } = this;
+    const { grid } = window;
     clef.on('newState', state => {
       this.setState({ pluginState: state });
     });
     clef.on('pluginRequest', request => {
-      onRequest(request);
+      dispatch(addRequest(request, grid));
     });
     clef.on('pluginNotification', notification => {
-      onNotification(notification);
+      dispatch(addNotification(notification, grid));
     });
   };
 
@@ -66,21 +74,19 @@ class App extends Component {
     const { pluginState } = this.state;
     return (
       <div className="App" style={{ maxWidth: '90%', margin: 'auto' }}>
-        <h1>Grid Clef Client</h1>
-        <h2
-          style={{
-            textTransform: 'uppercase',
-            color: '#444',
-            fontSize: '1em'
-          }}
-        >
-          PLUGIN: {pluginState}
-        </h2>
-        <Notifications clearNotification={this.clearNotification} />
+        <div className="App-header">
+          <h1>Grid Clef Client</h1>
+          <h2>PLUGIN: {pluginState}</h2>
+        </div>
+        <Notifications clef={this.clef} />
         <Requests clef={this.clef} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {};
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,21 +1,23 @@
 import Clef from '../clefService';
 
-export const addNotification = notification => {
-  Clef.notifyNotification(notification);
+export const addNotification = (data, grid) => {
+  const notification = formatNotification(data);
+  Clef.notifyNotification(notification, grid);
   return {
     type: 'NOTIFICATIONS:ADD',
     payload: { notification }
   };
 };
 
-export const clearNotification = index => {
+export const clearNotification = (index, clef) => {
+  clef.plugin.removePendingNotification(index);
   return {
     type: 'NOTIFICATIONS:CLEAR',
     payload: { index }
   };
 };
 
-export const onNotification = (data, client, dispatch) => {
+const formatNotification = (data, dispatch) => {
   const type = data.method === 'ui_showError' ? 'error' : 'info';
   let { text } = data.params[0];
   const { info } = data.params[0];
@@ -30,21 +32,14 @@ export const onNotification = (data, client, dispatch) => {
       text += ` ${ipcAddress}`;
     }
   }
-  const notification = { type, text, info, client: client.name };
-  dispatch(addNotification(notification));
+  const notification = { type, text, info };
+  return notification;
 };
 
-export function clearNotifications(client) {
+export function clearNotifications() {
   return async (dispatch, getState) => {
-    const notifications = getState().notifications.filter(
-      n => n.client === client.name
-    );
-    if (notifications.length === 0) {
-      return;
-    }
     dispatch({
-      type: 'NOTIFICATIONS:CLEAR_ALL',
-      payload: { clientName: client.name }
+      type: 'NOTIFICATIONS:CLEAR_ALL'
     });
   };
 }

@@ -1,6 +1,4 @@
 export const initialState = {
-  queue: [],
-  selectedIndex: 0,
   notifications: []
 };
 
@@ -26,12 +24,9 @@ const requests = (state = initialState, action) => {
       return newState;
     }
     case 'NOTIFICATIONS:CLEAR_ALL': {
-      const { clientName } = action.payload;
       const newState = {
         ...state,
-        notifications: state.notifications.filter(
-          request => request.client !== clientName
-        )
+        notifications: []
       };
       return newState;
     }
