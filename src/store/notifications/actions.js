@@ -10,7 +10,7 @@ export const addNotification = (data, grid) => {
 };
 
 export const clearNotification = (index, clef) => {
-  clef.plugin.removePendingNotification(index);
+  clef.api.removePendingNotification(index);
   return {
     type: 'NOTIFICATIONS:CLEAR',
     payload: { index }

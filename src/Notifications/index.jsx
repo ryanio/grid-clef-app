@@ -19,7 +19,7 @@ class Notifications extends Component {
   render() {
     const { notifications } = this.props;
     const renderNotifications = [];
-    notifications.notifications.forEach((notification, index) => {
+    notifications.forEach((notification, index) => {
       const { type, text } = notification;
       const renderNotification = (
         <Notification
@@ -40,7 +40,7 @@ class Notifications extends Component {
 
 function mapStateToProps(state) {
   return {
-    notifications: state.notifications
+    notifications: state.notifications.notifications
   };
 }
 

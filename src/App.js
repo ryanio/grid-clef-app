@@ -19,7 +19,8 @@ class App extends Component {
   componentDidMount = async () => {
     const clef = await window.grid.getClient('clef');
     this.clef = clef;
-    this.setState({ pluginState: clef.state });
+    const pluginState = clef.getState();
+    this.setState({ pluginState });
     this.getPending();
     this.addListeners();
   };
@@ -32,7 +33,7 @@ class App extends Component {
     const { dispatch } = this.props;
     const { clef } = this;
     const { grid } = window;
-    const { getPendingRequests, getPendingNotifications } = clef.plugin.config;
+    const { getPendingRequests, getPendingNotifications } = clef.api;
     const requests = getPendingRequests();
     requests.forEach(request => {
       dispatch(addRequest(request, grid));

@@ -11,10 +11,10 @@ class ClefService {
       payload.method = method;
       payload.params = params;
     }
-    clef.plugin.write(payload);
+    clef.stdinWrite(payload);
     if (id) {
       dispatch(requestDone(id));
-      clef.plugin.removePendingRequest(id);
+      clef.api.removePendingRequest(id);
     }
   }
 
