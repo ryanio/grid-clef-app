@@ -2,7 +2,6 @@ import Clef from '../clefService';
 
 export const addNotification = (data, grid) => {
   const notification = formatNotification(data);
-  Clef.notifyNotification(notification, grid);
   return {
     type: 'NOTIFICATIONS:ADD',
     payload: { notification }
@@ -10,7 +9,7 @@ export const addNotification = (data, grid) => {
 };
 
 export const clearNotification = (index, clef) => {
-  clef.api.removePendingNotification(index);
+  clef.api.removeQueue(index);
   return {
     type: 'NOTIFICATIONS:CLEAR',
     payload: { index }

@@ -7,7 +7,7 @@ import ApproveTx from './RequestTypes/ApproveTx';
 import ApproveSignData from './RequestTypes/ApproveSignData';
 
 class Request extends Component {
-  propTypes = {
+  static propTypes = {
     request: PropTypes.object,
     send: PropTypes.func
   };

@@ -1,4 +1,6 @@
 .App {
+  max-width: 90%;
+  margin: 20px auto;
 }
 
 .header {
@@ -38,11 +40,17 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chain-id {
+  text-align: center;
+  font-size: 14px;
+  background: #eee;
+  color: #111;
+  padding: 5px;
+  margin: 20px auto;
+  border-radius: 5px;
+  max-width: 220px;
+}
+
+.chain-id span.network {
+  text-transform: capitalize;
 }

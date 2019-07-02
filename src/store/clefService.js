@@ -1,6 +1,8 @@
 import { requestDone } from './requests/actions';
-// import { updateConfigValue } from '../client/actions';
-// import { chainIdToNetwork } from '../../lib/utils';
+import Web3 from 'web3';
+
+const web3 = new Web3();
+let rpcId = 0;
 
 class ClefService {
   send(clef, dispatch, method, params = [], id, result) {
@@ -11,59 +13,44 @@ class ClefService {
       payload.method = method;
       payload.params = params;
     }
-    clef.stdinWrite(payload);
+    const stringifiedPayload = JSON.stringify(payload);
+    clef.stdinWrite(stringifiedPayload);
     if (id) {
       dispatch(requestDone(id));
-      clef.api.removePendingRequest(id);
-    }
-  }
-
-  updateChainId(grid, dispatch, getState, chainId) {
-    const method = 'clef_setChainId';
-    const params = [chainId];
-    this.send(dispatch, method, params);
-    // dispatch(updateConfigValue('clef', 'chainId', chainId));
-    // const networkName = chainIdToNetwork(chainId);
-    // grid.notify(
-    //   'Clef: Network Updated',
-    //   `Set to ${networkName} (chain ID: ${chainId})`
-    // );
-  }
-
-  notifyRequest(request, grid) {
-    const title = 'Clef Signer';
-    let body = 'New Request';
-    switch (request.method) {
-      case 'ui_onInputRequired': {
-        const {
-          title: requestTitle,
-          prompt: requestPrompt
-        } = request.params[0];
-        body = `${requestTitle}: ${requestPrompt}`;
-        break;
+      const queueIndex = clef.api.getQueue().findIndex(i => i.id === id);
+      if (queueIndex) {
+        clef.api.removeQueue(queueIndex);
       }
-      case 'ui_approveTx':
-        body = 'New Transaction Request';
-        break;
-      case 'ui_approveSignData':
-        body = 'New Sign Data Request';
-        break;
-      case 'ui_approveNewAccount':
-        body = 'New Account Request';
-        break;
-      case 'ui_approveListing':
-        body = 'New Account Listing Request';
-        break;
-      default:
-        break;
     }
-    grid.notify(title, body);
   }
 
-  notifyNotification(notification, grid) {
-    const title = 'Clef Signer';
-    const body = notification.text;
-    grid.notify(title, body);
+  async getChainId(clef) {
+    return new Promise((resolve, reject) => {
+      const payload = {
+        jsonrpc: '2.0',
+        id: rpcId++,
+        method: 'clef_chainId',
+        params: []
+      };
+      const onData = data => {
+        let payload;
+        try {
+          payload = JSON.parse(data);
+        } catch (error) {}
+        if (!payload) {
+          return;
+        }
+        const { id } = payload;
+        if (id === payload.id) {
+          const chainId = web3.utils.hexToNumberString(payload.result);
+          resolve(chainId);
+          clef.off('log', onData);
+        }
+      };
+      clef.on('log', onData);
+      const stringifiedPayload = JSON.stringify(payload);
+      clef.stdinWrite(stringifiedPayload);
+    });
   }
 }
 

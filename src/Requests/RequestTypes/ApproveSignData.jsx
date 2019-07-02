@@ -22,6 +22,58 @@ class ApproveListing extends Component {
     send(null, [], id, result);
   }
 
+  renderMessage(message) {
+    const renderMessage = message => {
+      return message.map(thisMessage => {
+        const { name, type, value } = thisMessage;
+        return (
+          <div>
+            <div
+              style={{
+                margin: '15px 0 15px 5px',
+                padding: '10px',
+                backgroundColor: Array.isArray(value)
+                  ? 'rgba(0,0,0,.1)'
+                  : 'transparent'
+              }}
+            >
+              <div style={{ marginBottom: 5 }}>
+                Name: <strong>{name}</strong>
+              </div>
+              <div style={{ marginBottom: 5 }}>
+                Type: <strong>{type}</strong>
+              </div>
+              {renderValue(type, value)}
+            </div>
+          </div>
+        );
+      });
+    };
+    const renderValue = (type, value) => {
+      if (typeof value === 'string') {
+        return (
+          <div style={{ marginBottom: 5 }}>
+            Value:
+            {type === 'address' && (
+              <Identicon
+                address={value}
+                size="small"
+                style={{
+                  verticalAlign: 'middle',
+                  margin: '5px 10px'
+                }}
+              />
+            )}
+            &nbsp;<strong>{value}</strong>
+          </div>
+        );
+      } else if (Array.isArray(value)) {
+        return renderMessage(value);
+      }
+    };
+    return renderMessage(message);
+  }
+
   renderDetails() {
     const { request } = this.props;
     const {
@@ -31,40 +83,26 @@ class ApproveListing extends Component {
       message,
       hash
     } = request.params[0];
-    const { name, type, value } = message[0];
-    const showMessage = name || type || value;
     return (
       <div>
         <div>
-          <strong>Address:</strong>
+          Address:
           <Identicon
-            address="0xF5A5d5c30BfAC14bf207b6396861aA471F9A711D"
+            address={address}
             size="small"
             style={{ verticalAlign: 'middle', margin: '5px 10px' }}
           />
-          {address}
+          <strong>{address}</strong>
         </div>
         <div style={{ marginBottom: 10 }}>
-          <strong>Content Type</strong>: {contentType}
+          Content Type: <strong>{contentType}</strong>
         </div>
-        {showMessage && (
-          <div>
-            <strong>Message:</strong>
-            <div style={{ margin: '5px 0 15px 0', paddingLeft: 15 }}>
-              <div style={{ marginBottom: 5 }}>
-                <strong>Name:</strong> {name}
-              </div>
-              <div style={{ marginBottom: 5 }}>
-                <strong>Type:</strong> {type}
-              </div>
-              <div style={{ marginBottom: 5 }}>
-                <strong>Value:</strong> {value}
-              </div>
-            </div>
-          </div>
-        )}
         <div>
-          <strong>Raw Data:</strong>
+          Message:
+          {this.renderMessage(message)}
+        </div>
+        <div>
+          Raw Data:
           <div>
             <TextField
               value={rawData}
@@ -76,7 +114,7 @@ class ApproveListing extends Component {
           </div>
         </div>
         <div style={{ margin: '20px 0' }}>
-          <strong>Hash:</strong> {hash}
+          Hash: <strong>{hash}</strong>
         </div>
       </div>
     );

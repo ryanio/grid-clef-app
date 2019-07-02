@@ -21,13 +21,13 @@ class RequestInfo extends Component {
         <strong>Request Details</strong>
         <div style={{ paddingTop: 5, paddingLeft: 10 }}>
           <div style={{ marginBottom: 5 }}>
-            <strong>Remote:</strong> {remote}
+            Remote: <strong>{remote}</strong>
           </div>
           <div style={{ marginBottom: 5 }}>
-            <strong>Transport:</strong> {scheme}
+            Transport: <strong>{scheme}</strong>
           </div>
           <div style={{ marginBottom: 5 }}>
-            <strong>Local Endpoint:</strong> {local}
+            Local Endpoint: <strong>{local}</strong>
           </div>
           {userAgent && (
             <div style={{ marginBottom: 5 }}>

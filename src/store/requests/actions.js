@@ -8,13 +8,9 @@ export const selectRequest = index => {
 };
 
 export const addRequest = (data, grid) => {
+  console.log(data);
   return async (dispatch, getState) => {
     const request = { ...data };
-    Clef.notifyRequest(request, grid);
-    // Remove unneeded jsonrpc value
-    // if (request.jsonrpc) {
-    //   delete request.jsonrpc
-    // }
     dispatch({
       type: 'REQUESTS:ADD_REQUEST',
       payload: { request }
