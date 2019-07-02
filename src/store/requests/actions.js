@@ -1,5 +1,3 @@
-import Clef from '../clefService';
-
 export const selectRequest = index => {
   return {
     type: 'REQUESTS:SELECT_REQUEST',
@@ -8,7 +6,6 @@ export const selectRequest = index => {
 };
 
 export const addRequest = (data, grid) => {
-  console.log(data);
   return async (dispatch, getState) => {
     const request = { ...data };
     dispatch({

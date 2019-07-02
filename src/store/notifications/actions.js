@@ -1,5 +1,3 @@
-import Clef from '../clefService';
-
 export const addNotification = (data, grid) => {
   const notification = formatNotification(data);
   return {
