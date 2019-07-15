@@ -11,9 +11,9 @@ class Notifications extends Component {
     clef: PropTypes.object
   };
 
-  onDismiss = index => {
+  onDismiss = (index, notification) => {
     const { dispatch, clef } = this.props;
-    dispatch(clearNotification(index, clef));
+    dispatch(clearNotification(index, notification, clef));
   };
 
   render() {
@@ -27,7 +27,7 @@ class Notifications extends Component {
           type={type}
           message={text}
           onDismiss={() => {
-            this.onDismiss(index);
+            this.onDismiss(index, notification);
           }}
         />
       );

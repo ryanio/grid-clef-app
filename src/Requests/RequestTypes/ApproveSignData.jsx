@@ -24,10 +24,13 @@ class ApproveListing extends Component {
 
   renderMessage(message) {
     const renderMessage = message => {
+      if (!message) {
+        return null;
+      }
       return message.map(thisMessage => {
         const { name, type, value } = thisMessage;
         return (
-          <div>
+          <div key={name}>
             <div
               style={{
                 margin: '15px 0 15px 5px',
@@ -80,7 +83,7 @@ class ApproveListing extends Component {
       content_type: contentType,
       address,
       raw_data: rawData,
-      message,
+      messages,
       hash
     } = request.params[0];
     return (
@@ -99,7 +102,7 @@ class ApproveListing extends Component {
         </div>
         <div>
           Message:
-          {this.renderMessage(message)}
+          {this.renderMessage(messages)}
         </div>
         <div>
           Raw Data:

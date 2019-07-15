@@ -35,7 +35,7 @@ const styles = theme => ({
     marginBottom: 1
   },
   inlineIcon: {
-    marginRight: theme.spacing.unit
+    marginRight: 5
   },
   closeIcon: {
     opacity: 0.9

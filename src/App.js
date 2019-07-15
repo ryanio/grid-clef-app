@@ -52,12 +52,16 @@ class App extends Component {
   addPayload = payload => {
     const { dispatch } = this.props;
     const { grid } = window;
-    if (requestMethods.includes(payload.method)) {
+    const { method } = payload;
+    if (!method) {
+      return;
+    }
+    if (requestMethods.includes(method)) {
       dispatch(addRequest(payload, grid));
-    } else if (notificationMethods.includes(payload.method)) {
+    } else if (notificationMethods.includes(method)) {
       dispatch(addNotification(payload, grid));
     } else {
-      console.error('Unsupported clef method: ', payload.method, payload);
+      console.error('Unsupported clef method: ', method, payload);
     }
   };
 

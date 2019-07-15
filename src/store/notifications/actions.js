@@ -6,12 +6,32 @@ export const addNotification = (data, grid) => {
   };
 };
 
-export const clearNotification = (index, clef) => {
-  clef.api.removeQueue(index);
+export const clearNotification = (index, notification, clef) => {
+  clearNotificationInQueue(index, notification, clef);
   return {
     type: 'NOTIFICATIONS:CLEAR',
     payload: { index }
   };
+};
+
+const clearNotificationInQueue = (index, notification, clef) => {
+  const queueIndex = clef.api.getQueue().findIndex(message => {
+    if (message && message.params && message.params[0].text) {
+      if (notification.text === message.params[0].text) {
+        return true;
+      }
+    }
+    if (
+      message.method === 'ui_onSignerStartup' &&
+      notification.text.includes('Clef signer started')
+    ) {
+      return true;
+    }
+    return false;
+  });
+  if (queueIndex > -1) {
+    clef.api.removeQueue(queueIndex);
+  }
 };
 
 const formatNotification = (data, dispatch) => {
