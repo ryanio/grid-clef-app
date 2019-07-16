@@ -8,11 +8,13 @@ import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { AddressInput } from 'ethereum-react-components';
-import web3 from 'web3';
+import Web3 from 'web3';
 import Notification from '../../Notifications/Notification';
 import RequestInfo from '../RequestInfo';
 import RequestActions from '../RequestActions';
 import { ethValidators, validateTx } from '../../lib/validators';
+
+const web3 = new Web3();
 
 const styles = () => ({
   formGroup: {}
@@ -429,7 +431,7 @@ class ApproveListing extends Component {
         {this.renderCallInfo()}
         <Grid
           container
-          spacing={24}
+          spacing={4}
           style={{ margin: '10px 0', paddingRight: 20 }}
         >
           <Grid item xs={6}>
