@@ -36,7 +36,7 @@ class ApproveListing extends Component {
                 margin: '15px 0 15px 5px',
                 padding: '10px',
                 backgroundColor: Array.isArray(value)
-                  ? 'rgba(0,0,0,.1)'
+                  ? 'rgba(0,0,0,.05)'
                   : 'transparent'
               }}
             >

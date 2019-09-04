@@ -22,7 +22,7 @@ class ApproveListing extends Component {
     const { request } = this.props;
     const { accounts } = request.params[0];
     accounts.forEach(account => {
-      account.checked = true; // eslint-disable-line
+      account.checked = false; // eslint-disable-line
     });
     this.state = {
       accounts

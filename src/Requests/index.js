@@ -89,11 +89,7 @@ class Requests extends Component {
     const { queue, selectedIndex } = requests;
     const request = queue[selectedIndex];
     if (!request) {
-      return (
-        <Typography style={{ marginTop: 25, textAlign: 'center' }}>
-          No requests in queue.
-        </Typography>
-      );
+      return <Typography style={{ marginTop: 25 }}>Queue empty.</Typography>;
     }
     return <Request request={request} send={this.send} />;
   }

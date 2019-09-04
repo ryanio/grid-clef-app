@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Container from '@material-ui/core/Container';
 import Tooltip from '@material-ui/core/Tooltip';
 import './App.css';
 import Requests from './Requests';
@@ -80,11 +81,18 @@ class App extends Component {
     this.setState({ chainId });
   };
 
+  requestStart = () => {
+    const { clef } = this;
+    if (clef.getState() === 'STOPPED') {
+      clef.start();
+    }
+  };
+
   addListeners = () => {
     const { clef } = this;
     clef.on('newState', state => {
       this.setState({ pluginState: state });
-      if (state === 'connected') {
+      if (state === 'CONNECTED') {
         this.getChainId();
       }
     });
@@ -121,12 +129,28 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h1>Grid Clef Client</h1>
-          <h2>PLUGIN: {pluginState}</h2>
+          <Container>
+            <h1>Clef Client</h1>
+            <div
+              class="plugin-state"
+              onClick={() => {
+                this.requestStart();
+              }}
+              style={{
+                cursor: pluginState === 'STOPPED' ? 'pointer' : 'default'
+              }}
+            >
+              {pluginState}
+            </div>
+            {pluginState === 'CONNECTED' && this.renderChainId()}
+          </Container>
         </div>
-        {pluginState === 'connected' && this.renderChainId()}
-        <Notifications clef={this.clef} />
-        <Requests clef={this.clef} />
+        <Container>
+          <main>
+            <Notifications clef={this.clef} />
+            <Requests clef={this.clef} />
+          </main>
+        </Container>
       </div>
     );
   }

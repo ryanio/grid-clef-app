@@ -1,56 +1,52 @@
+body {
+  color: #111;
+  background: #f9f9f9;
+}
+
 .App {
-  max-width: 90%;
-  margin: 20px auto;
 }
 
 .header {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 15vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  padding: 20px 0;
 }
 
 .App-header h1 {
-  margin-bottom: 20px;
+  font-size: 18px;
+  display: inline-block;
 }
 
-.App-header h2 {
+.App-header .plugin-state {
+  display: inline-block;
+  margin-left: 30px;
   text-transform: uppercase;
   color: #ccc;
-  font-size: 18px;
-  margin-top: 0;
-}
-
-.App-link {
-  color: #61dafb;
+  font-size: 13px;
+  font-weight: normal;
+  border-radius: 999px;
+  background: #000;
+  padding: 5px 10px;
 }
 
 .chain-id {
-  text-align: center;
   font-size: 14px;
-  background: #eee;
-  color: #111;
-  padding: 5px;
-  margin: 20px auto;
+  display: inline-block;
+  margin-left: 30px;
+  background: #444;
+  color: #eee;
+  padding: 10px;
   border-radius: 5px;
-  max-width: 220px;
 }
 
 .chain-id span.network {
   text-transform: capitalize;
+}
+
+main {
+  margin-bottom: 30px;
 }

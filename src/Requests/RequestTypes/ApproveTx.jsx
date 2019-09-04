@@ -17,7 +17,13 @@ import { ethValidators, validateTx } from '../../lib/validators';
 const web3 = new Web3();
 
 const styles = () => ({
-  formGroup: {}
+  formGroup: {},
+  edit: {
+    opacity: 0.5,
+    '&:hover': {
+      opacity: 1
+    }
+  }
 });
 
 class ApproveListing extends Component {
@@ -213,6 +219,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -221,7 +229,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -243,6 +250,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -251,7 +260,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -274,6 +282,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -282,7 +292,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -307,6 +316,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -315,7 +326,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -340,6 +350,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -348,7 +360,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -373,6 +384,8 @@ class ApproveListing extends Component {
           fullWidth
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -381,7 +394,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
@@ -406,6 +418,8 @@ class ApproveListing extends Component {
           multiline
         />
         <FormControlLabel
+          label="Edit"
+          className={classes.edit}
           control={
             <Checkbox
               color="primary"
@@ -414,7 +428,6 @@ class ApproveListing extends Component {
               style={{ marginLeft: 10 }}
             />
           }
-          label="Edit"
         />
       </FormGroup>
     );
