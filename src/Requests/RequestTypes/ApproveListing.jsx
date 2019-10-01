@@ -21,11 +21,14 @@ class ApproveListing extends Component {
     super(props);
     const { request } = this.props;
     const { accounts } = request.params[0];
-    accounts.forEach(account => {
-      account.checked = false; // eslint-disable-line
-    });
+
+    accounts &&
+      accounts.forEach(account => {
+        account.checked = false; // eslint-disable-line
+      });
+
     this.state = {
-      accounts
+      accounts: accounts || []
     };
   }
 
@@ -63,6 +66,7 @@ class ApproveListing extends Component {
 
   renderAccounts() {
     const { accounts } = this.state;
+    if (!accounts.length) return <div>No accounts to show</div>;
     const renderAccounts = [];
     accounts.forEach(account => {
       const thisRender = (
