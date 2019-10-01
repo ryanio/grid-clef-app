@@ -132,7 +132,7 @@ class App extends Component {
           <Container>
             <h1>Clef Client</h1>
             <div
-              class="plugin-state"
+              className="plugin-state"
               onClick={() => {
                 this.requestStart();
               }}
