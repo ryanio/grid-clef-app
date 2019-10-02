@@ -66,7 +66,12 @@ class ApproveListing extends Component {
 
   renderAccounts() {
     const { accounts } = this.state;
-    if (!accounts.length) return <div>No accounts to show</div>;
+    if (!accounts.length)
+      return (
+        <div>
+          <em>No accounts to show.</em>
+        </div>
+      );
     const renderAccounts = [];
     accounts.forEach(account => {
       const thisRender = (
